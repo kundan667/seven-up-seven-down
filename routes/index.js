@@ -8,11 +8,9 @@ const Bet = require("../models/Bets");
 router.post("/entergame", (req, res) =>{
 
     let name = (req.body.name).trim();
-    console.log("name::",name);
     //User.findOne({ name: { $regex: req.body.name, $options: "i" }})
     User.findOne({ name: name.toLowerCase() })
     .then( user => {
-        console.log("user::",user);
         if( user ){
             res.json(user);
         }

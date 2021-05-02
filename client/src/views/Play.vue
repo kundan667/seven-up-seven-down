@@ -217,17 +217,16 @@ export default {
                 }
                 await axios.post("/rolldice", data)
                 .then(res => {
-                    
                     let resData = res.data;
-
+                    this.dice1 = resData.dice1;
+                    this.dice2 = resData.dice2;
+                    
                     setTimeout( () => {
                         clearInterval(interval);
                         setTimeout( () => {
                             this.changeSide(this.dice1, this.dice2);
                             setTimeout( () => {
                                 this.$store.commit('SET_POINTS', {points: resData.points}); 
-                                this.dice1 = resData.dice1;
-                                this.dice2 = resData.dice2;
                                 this.amount = resData.amount;
                                 this.betAmount = 100;
                                 this.points = resData.points;
@@ -236,8 +235,6 @@ export default {
                             },1000)
                         },180)
                     },1000)
-                    
-                    
                 })
                 .catch( err => console.log( "err:", err ) )
             }
@@ -248,6 +245,7 @@ export default {
             this.$router.history.push({ name: 'landing' })
         },
         changeSide( d1, d2 ) {
+            console.log("d1, d2",[d1,d2])
             let cube1 = document.querySelector('.cube-1');
             let cube2 = document.querySelector('.cube-2');
             let showClass1 = 'show-' + d1;
