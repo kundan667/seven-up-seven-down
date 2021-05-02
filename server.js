@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 const port = process.env.PORT || 9000;
 
 // DB
-const mdb = require("./config/key").mongoURIprod;
+const mdb = require("./config/key").mongoURI;
 mongoose.connect(process.env.MONGODB_URI || mdb)
 .then(() => console.log("Mongo DB connected"))
 .catch(err => console.log("db error:",err));
