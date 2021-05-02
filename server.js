@@ -34,8 +34,8 @@ app.use(bodyParser.json());
 // API Routes
 app.use("/api", index);
 
-// if(process.env.NODE_ENV === 'production'){
-//     app.use(express.static('client/dist'));
-// }
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/dist'));
+}
 //Listen
 server.listen(port, () => console.log(`server running on port ${port}`));
