@@ -245,7 +245,6 @@ export default {
             this.$router.history.push({ name: 'landing' })
         },
         changeSide( d1, d2 ) {
-            console.log("d1, d2",[d1,d2])
             let cube1 = document.querySelector('.cube-1');
             let cube2 = document.querySelector('.cube-2');
             let showClass1 = 'show-' + d1;
@@ -439,11 +438,11 @@ body { font-family: sans-serif; }
   transition: transform .2s;
 }
 
-.cube.show-1  { transform: translateZ(-30px) rotateY(   0deg); }
-.cube.show-2   { transform: translateZ(-30px) rotateY(-180deg); }
-.cube.show-3  { transform: translateZ(-30px) rotateY( -90deg); }
-.cube.show-4   { transform: translateZ(-30px) rotateY(  90deg); }
-.cube.show-5    { transform: translateZ(-30px) rotateX( -90deg); }
+.cube.show-1 { transform: translateZ(-30px) rotateY(   0deg); }
+.cube.show-2 { transform: translateZ(-30px) rotateY(-180deg); }
+.cube.show-3 { transform: translateZ(-30px) rotateY( -90deg); }
+.cube.show-4 { transform: translateZ(-30px) rotateY(  90deg); }
+.cube.show-5 { transform: translateZ(-30px) rotateX( -90deg); }
 .cube.show-6 { transform: translateZ(-30px) rotateX(  90deg); }
 
 .cube__face {
@@ -457,12 +456,12 @@ body { font-family: sans-serif; }
   text-align: center;
 }
 
-.cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
+/* .cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
 .cube__face--right  { background: hsla( 60, 100%, 50%, 0.7); }
 .cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
 .cube__face--left   { background: hsla(180, 100%, 50%, 0.7); }
 .cube__face--top    { background: hsla(240, 100%, 50%, 0.7); }
-.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); }
+.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); } */
 
 .cube__face--front  { transform: rotateY(  0deg) translateZ(30px); }
 .cube__face--right  { transform: rotateY( 90deg) translateZ(30px); }

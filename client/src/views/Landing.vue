@@ -54,6 +54,7 @@ export default {
   justify-content: center;
   font-size: 1em;
   background-image: url("../assets/images/pattern_2.webp");
+  background-repeat: no-repeat;
 }
 .start-game{
   display: grid;
@@ -62,10 +63,12 @@ export default {
 .start-game input{
   border: none;
   padding: .8em 1em;
+  border-radius: 4px;
 }
 .start-game button{
     border: none;
     padding: .8em 1em;
     background: #00e5e5;
+    border-radius: 4px;
 }
 </style>
