@@ -202,6 +202,9 @@ export default {
             this.viewModal = false;
         },
         rollDice: async function(){
+            let audio = new Audio(require('@/assets/audio/roll.mp3'));
+            let playPromise = audio.play();
+            //audio.play();
             if( this.$store.getters.getPoints < 100 ){
                 this.info = "Error";
             }else{
@@ -225,6 +228,7 @@ export default {
                         clearInterval(interval);
                         setTimeout( () => {
                             this.changeSide(this.dice1, this.dice2);
+                            audio.play();
                             setTimeout( () => {
                                 this.$store.commit('SET_POINTS', {points: resData.points}); 
                                 this.amount = resData.amount;
