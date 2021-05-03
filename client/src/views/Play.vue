@@ -175,11 +175,13 @@ export default {
             amount: 0,
             amountOnBoard: 100,
             currentClass1: '',
-            currentClass2:''
+            currentClass2:'',
+            audio:''
         }
     },
     created(){
         this.points = this.$store.getters.getPoints;
+        this.audio = new Audio(require('@/assets/audio/roll.mp3'));
     },
     beforeCreate(){
         if( this.$store.getters.getUser === '' ){
@@ -202,8 +204,8 @@ export default {
             this.viewModal = false;
         },
         rollDice: async function(){
-            let audio = new Audio(require('@/assets/audio/roll.mp3'));
-            let playPromise = audio.play();
+            //let audio = new Audio(require('@/assets/audio/roll.mp3'));
+            let playPromise = this.audio.play();
             //audio.play();
             if( this.$store.getters.getPoints < 100 ){
                 this.info = "Error";
@@ -211,8 +213,9 @@ export default {
                 let interval = setInterval( () => {
                     let td1 = Math.floor(Math.random() * 6) + 1;
                     let td2 = Math.floor(Math.random() * 6) + 1;
+                    this.audio.currentTime = 0.1 * td1;
                     this.changeSide(td1, td2);
-                }, 180)
+                }, 200)
                 let data = {
                     id: this.$store.getters.getUserId,
                     betNumber: this.betNumber,
@@ -228,7 +231,8 @@ export default {
                         clearInterval(interval);
                         setTimeout( () => {
                             this.changeSide(this.dice1, this.dice2);
-                            audio.play();
+                            this.audio.currentTime = 0.5;
+                            this.audio.pause();
                             setTimeout( () => {
                                 this.$store.commit('SET_POINTS', {points: resData.points}); 
                                 this.amount = resData.amount;
@@ -426,11 +430,13 @@ export default {
 body { font-family: sans-serif; }
 
 .scene {
-  width: 60px;
-  height: 60px;
-  margin: 10px;
-  perspective: 400px;
-  box-shadow: 1px 30px 40px -2px #000000;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    perspective: 400px;
+    box-shadow: 1px 30px 40px -2px #000000;
+    transform: rotate3d(1, 0, 0, 15deg);
+    transform-style: preserve-3d;
 }
 
 .cube {

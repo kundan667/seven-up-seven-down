@@ -30,7 +30,6 @@ export default {
       if( this.name !== '' ){
         await axios.post("/entergame", { name: this.name })
         .then(res => {
-          console.log("res::",res)
           if( res.status == 200 ){
             this.name = '';
             this.$store.commit('SET_USER',{name:res.data.name, id:res.data._id})

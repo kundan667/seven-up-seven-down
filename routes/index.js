@@ -9,20 +9,23 @@ router.post("/entergame", (req, res) =>{
 
     let name = (req.body.name).trim();
     //User.findOne({ name: { $regex: req.body.name, $options: "i" }})
+
     User.findOne({ name: name.toLowerCase() })
     .then( user => {
         if( user ){
             res.json(user);
+        }else{
+            const newUser = new User({
+                name: name.trim()
+            });
+    
+            // Save New user
+            newUser.save()
+            .then(user => {res.json(user)})
         }
-        const newUser = new User({
-            name: name.trim()
-        });
-
-        // Save New user
-        newUser.save()
-        .then(user => {res.json(user)})
+        
     })
-    .catch( err => {res.json(err);});
+    .catch( err => {res.json(err)});
 });
 
 router.post('/rolldice', ( req, res ) =>{
