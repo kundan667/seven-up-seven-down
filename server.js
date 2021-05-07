@@ -17,7 +17,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Create server
-
 const port = process.env.PORT || 9000;
 
 // DB
@@ -37,5 +36,10 @@ app.use("/api", index);
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/dist'));
 }
+
+app.get('*',(req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
 //Listen
 server.listen(port, () => console.log(`server running on port ${port}`));
