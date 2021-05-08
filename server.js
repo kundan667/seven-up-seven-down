@@ -40,7 +40,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 app.use(history({
-  index: '/' //whatever your home/index path is default is /index.html
+  index: '/index.html' //whatever your home/index path is default is /index.html
 }));
 
 // app.get('*',(req, res) => {
