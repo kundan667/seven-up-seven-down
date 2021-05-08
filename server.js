@@ -3,6 +3,7 @@ const http = require("http");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const history = require('connect-history-api-fallback');
 
 const index = require("./routes/index");
 
@@ -37,6 +38,10 @@ app.use("/api", index);
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/dist'));
 }
+
+app.use(history({
+  index: '/' //whatever your home/index path is default is /index.html
+}));
 
 // app.get('*',(req, res) => {
 //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
