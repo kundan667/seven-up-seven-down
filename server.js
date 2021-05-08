@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use("/api", index);
 
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/dist'));
+    app.use(express.static(__dirname +'/dist'));
 }
 
 // app.get('*',(req, res) => {
