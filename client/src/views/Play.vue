@@ -149,7 +149,6 @@
                 :amount="amount"
                 @click="closeModal()"/>
         </div>
-        
     </div>
 </template>
 
@@ -180,10 +179,12 @@ export default {
         }
     },
     created(){
+        // Load the dice rolling audio when vue instance is created
         this.points = this.$store.getters.getPoints;
         this.audio = new Audio(require('@/assets/audio/roll.mp3'));
     },
     beforeCreate(){
+        // Check if the user has already registered 
         if( this.$store.getters.getUser === '' ){
             this.$router.history.push( { name: 'landing' } )
         }
@@ -204,13 +205,14 @@ export default {
             this.viewModal = false;
         },
         rollDice: async function(){
-            //let audio = new Audio(require('@/assets/audio/roll.mp3'));
             let playPromise = this.audio.play();
-            //audio.play();
             if( this.$store.getters.getPoints < 100 ){
-                this.info = "Error";
+                // Do/Show something if the point is less than 100
+                //this.info = "Error";
             }else{
                 let interval = setInterval( () => {
+                    // Start fake the rolling of dice at interval till the actual response recieved
+
                     let td1 = Math.floor(Math.random() * 6) + 1;
                     let td2 = Math.floor(Math.random() * 6) + 1;
                     this.audio.currentTime = 0.1 * td1;
@@ -228,12 +230,17 @@ export default {
                     this.dice2 = resData.dice2;
                     
                     setTimeout( () => {
+                        // when response is recieved stop the fake rolling of dice after a timeout of 1s
                         clearInterval(interval);
                         setTimeout( () => {
                             this.changeSide(this.dice1, this.dice2);
+
+                            // set the audio timline to .5s and pause it
                             this.audio.currentTime = 0.5;
                             this.audio.pause();
                             setTimeout( () => {
+
+                                // store the points and other details to state(store)
                                 this.$store.commit('SET_POINTS', {points: resData.points}); 
                                 this.amount = resData.amount;
                                 this.betAmount = 100;
@@ -253,6 +260,8 @@ export default {
             this.$router.history.push({ name: 'landing' })
         },
         changeSide( d1, d2 ) {
+            // Rolling of dice
+
             let cube1 = document.querySelector('.cube-1');
             let cube2 = document.querySelector('.cube-2');
             let showClass1 = 'show-' + d1;

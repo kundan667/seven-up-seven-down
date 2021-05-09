@@ -8,11 +8,12 @@ const Bet = require("../models/Bets");
 router.post("/entergame", (req, res) =>{
 
     let name = (req.body.name).trim();
-    //User.findOne({ name: { $regex: req.body.name, $options: "i" }})
 
+    // Find the user
     User.findOne({ name: name.toLowerCase() })
     .then( user => {
         if( user ){
+            //Return user if is exists
             res.json(user);
         }else{
             const newUser = new User({
@@ -30,12 +31,14 @@ router.post("/entergame", (req, res) =>{
 
 router.post('/rolldice', ( req, res ) =>{
     
+    // Find the user
     User.findById(req.body.id)
     .then( user => {
         let betNo = req.body.betNumber.toLowerCase();
         let betAmt = req.body.betAmount;
         let win = true;
     
+        // Generate random number
         const r1 = Math.floor(Math.random() * 6) + 1;
         const r2 = Math.floor(Math.random() * 6) + 1;
         const sumDice = r1 + r2;
@@ -65,11 +68,10 @@ router.post('/rolldice', ( req, res ) =>{
         betObj.save()
         .then( bet => {
             const points = win ? (user.points + betAmt) : (user.points - betAmt);
-            // Update user's points
+            // Update user's points (Bet table)
             user.points = points;
             user.save()
             .then( us => {
-
                 // Send dice response and points
                 const random = {
                     dice1: r1,
