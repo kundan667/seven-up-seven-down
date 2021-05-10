@@ -9,6 +9,10 @@ const user = mongoose.Schema({
         type: Number,
         required: true,
         default: 5000
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now
     }
 });
 

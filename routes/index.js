@@ -7,17 +7,17 @@ const Bet = require("../models/Bets");
 
 router.post("/entergame", (req, res) =>{
 
-    let name = (req.body.name).trim();
+    const name = ((req.body.name).trim()).toUpperCase();
 
     // Find the user
-    User.findOne({ name: name.toLowerCase() })
+    User.findOne({ name: { $regex: '.*' + name + '.*' } })
     .then( user => {
         if( user ){
             //Return user if is exists
             res.json(user);
         }else{
             const newUser = new User({
-                name: name.trim()
+                name: name
             });
     
             // Save New user
